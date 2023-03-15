@@ -75,7 +75,9 @@ public class Rescue {
     private static boolean hasListedTitle(String name) {
         for (String title : listedTitles) {
             if (name.contains(title)) {
-                return true;
+                if (name.indexOf(title) < name.indexOf(" ")) {
+                    return true;
+                }
             }
         }
         return false;
@@ -108,7 +110,14 @@ public class Rescue {
      */
     private static boolean hasCredentials(String name) {
         // If a name contains a comma, it must have a credential
-        return (name.indexOf(",") != -1);
+        // Check that the credential is at the end of the name
+        // Done by checking if the comma and space are the last space in the name
+        if (name.contains(",")) {
+            if ((name.indexOf(", ") + 1) == name.lastIndexOf(" ")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

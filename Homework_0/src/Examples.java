@@ -12,6 +12,10 @@ import java.util.LinkedList;
 
 public class Examples {
 
+    // Listed titles for checking titling
+    static String listedTitles[] = { "Prince", "Princess", "Duke", "Dutchess", "Baron", "Baroness", "Count", "Countess",
+    "Judge" };
+
     // Total Kittens Method Tests
     @Test
     public void testTotalKittensPos() {
@@ -53,22 +57,59 @@ public class Examples {
     // Honorably Titled Method Tests
     @Test
     public void testHonorablyTitledFalseListedTitle() {
-        assertTrue("Detected false listed title", !Rescue.honorablyTitled("Title Fluffykins, MD"));
+        assertFalse("Detected false listed title", Rescue.honorablyTitled("Title Fluffykins, MD"));
     }
 
     @Test
     public void testHonorablyTitledFalsePeriodTitle() {
-        assertTrue("Detected false period title", !Rescue.honorablyTitled("Fluffykins, Esq."));
+        assertFalse("Detected false period title", Rescue.honorablyTitled("Fluffykins, Esq."));
     }
 
     @Test
-    public void testHonorablyTitledFalseNoCredentials() {
-        assertTrue("Detected false no credentials", !Rescue.honorablyTitled("Judge Fluffykins"));
+    public void testHonorablyTitledFalseNoCredentialsListedTitle() {
+        assertFalse("Detected false credentials", Rescue.honorablyTitled("Judge Fluffykins"));
     }
 
     @Test
-    public void testHonorablyTitledTrue() {
-        assertTrue("Has both given title and credentials", Rescue.honorablyTitled("Count Fluffykins, Esq."));
+    public void testHonorablyTitledFalseNoCredentialsPeriodTitle() {
+        assertFalse("Detected false credentials", Rescue.honorablyTitled("Mr. Fluffykins"));
+    }
+
+    @Test
+    public void testHonorablyTitledTrueAllListedTitles() {
+        for (String title : listedTitles) {
+            assertTrue(String.format("Detected false listed title: %s", title), Rescue.honorablyTitled(title + " Fluffykins, MD"));
+        }
+    }
+
+    @Test
+    public void testHonorablyTitledFalseOutOfOrderListedTitle() {
+        assertFalse("Produced true on out of order listed title with good credentials", Rescue.honorablyTitled("Fluffykins Judge, MD"));
+    }
+
+    @Test
+    public void testHonorablyTitledFalseOutOfOrderPeriodTitle() {
+        assertFalse("Produced true on out of order period title with good credentials", Rescue.honorablyTitled("Fluffykins Dr., MD"));
+    }
+
+    @Test
+    public void testHonorablyTitledFalseOutOfOrderCredentialsListedTitle() {
+        assertFalse("Produced true on out of order credentials with listed title", Rescue.honorablyTitled("Judge, MD Fluffykins"));
+    }
+
+    @Test
+    public void testHonorablyTitledFalseOutOfOrderCredentialsPeriodTitle() {
+        assertFalse("Produced true on out of order credentials with listed title", Rescue.honorablyTitled("Dr., MD Fluffykins"));
+    }
+
+    @Test
+    public void testHonorablyTitledTrueListedTitle() {
+        assertTrue("Returned false on both given title and credentials", Rescue.honorablyTitled("Count Fluffykins, Esq."));
+    }
+
+    @Test
+    public void testHonorablyTitledTruePeriodTitle() {
+        assertTrue("Returned false on both period title and credentials", Rescue.honorablyTitled("Dr. Fluffykins, Esq."));
     }
 
     // Chinchilla Feed Method Tests
@@ -202,9 +243,17 @@ public class Examples {
     }
 
     @Test
-    public void testGoatBloatedWithUnevenLists() {
+    public void testGoatBloatedWithLongerCurrentWeightList() {
         ArrayList<Double> currentWeights = new ArrayList<Double>(Arrays.asList(15.0, 10.0, 10.0, 30.0));
         ArrayList<Double> targetWeights = new ArrayList<Double>(Arrays.asList(15.0, 20.0, 10.0));
+        double allowedError = 5.0;
+        assertEquals("Failed uneven list test", 1, Rescue.goatBloat(currentWeights, targetWeights, allowedError));
+    }
+
+    @Test
+    public void testGoatBloatedWithLongerTargetWeightList() {
+        ArrayList<Double> currentWeights = new ArrayList<Double>(Arrays.asList(15.0, 10.0, 10.0));
+        ArrayList<Double> targetWeights = new ArrayList<Double>(Arrays.asList(15.0, 20.0, 10.0, 30.0));
         double allowedError = 5.0;
         assertEquals("Failed uneven list test", 1, Rescue.goatBloat(currentWeights, targetWeights, allowedError));
     }
