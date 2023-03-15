@@ -3,7 +3,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-public class ExtremeTemps {
+public class ExtremeTempsTesting {
 
     @Test
     public void testExtremeTempMethodOrderedData() {
