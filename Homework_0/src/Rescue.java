@@ -93,7 +93,7 @@ public class Rescue {
     private static boolean hasPeriodTitle(String name) {
 
         // Find the first index of a period in the name (-1 if none)
-        int periodIndex = name.indexOf(".");
+        int periodIndex = name.indexOf(". ");
 
         // If the name has a period title, then it must contain a period
         // The period must also be within the first 5 characters
@@ -233,5 +233,63 @@ public class Rescue {
      */
     private static boolean goatBloated(double currentWeight, double targetWeight, double errorTolerance) {
         return (Math.abs(currentWeight - targetWeight) > errorTolerance);
+    }
+
+    /**
+     * Returns an array of objects containing the minimum and maximum temps for each
+     * given entry
+     * Returns null if temps array is empty
+     *
+     * @param temps List of temperature readings
+     * @return List of minimum and maximum readings
+     */
+    public static MinMaxTemp[] extremeTemps(double temps[][]) {
+
+        // Ensure temps isn't empty
+        if (temps.length < 1) {
+            return null;
+        }
+
+        // Create the array to store the objects in
+        MinMaxTemp extremeTempArray[] = new MinMaxTemp[temps.length];
+
+        // Loop through the animals, setting the MinMaxTemp objects along the way
+        for (int animalNum = 0; animalNum < temps.length; animalNum++) {
+            extremeTempArray[animalNum] = extremeTemps(temps[animalNum]);
+        }
+
+        return extremeTempArray;
+    }
+
+    /**
+     * Returns an object containing the minimum and maximum temps in the given temps
+     * array
+     * Returns null if temps is empty
+     *
+     * @param temps Array of temperatures
+     * @return Object with min and max temps
+     */
+    public static MinMaxTemp extremeTemps(double temps[]) {
+
+        // Ensure temps isn't empty
+        if (temps.length < 1) {
+            return null;
+        }
+
+        // Create variables to store min/max temps
+        double minTemp = temps[0];
+        double maxTemp = temps[0];
+
+        // Loop through temps
+        for (int index = 1; index < temps.length; index++) {
+            double temp = temps[index];
+            if (temp < minTemp) {
+                minTemp = temp;
+            } else if (temp > maxTemp) {
+                maxTemp = temp;
+            }
+        }
+
+        return new MinMaxTemp(minTemp, maxTemp);
     }
 }

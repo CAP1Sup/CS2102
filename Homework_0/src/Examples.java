@@ -62,17 +62,22 @@ public class Examples {
 
     @Test
     public void testHonorablyTitledFalsePeriodTitle() {
-        assertFalse("Detected false period title", Rescue.honorablyTitled("Fluffykins, Esq."));
+        assertFalse("Detected false period title in credentials", Rescue.honorablyTitled("Fluffykins, Esq."));
+    }
+
+    @Test
+    public void testHonorablyTitledFalseLongPeriodTitle() {
+        assertFalse("Passed period title greater than correct size", Rescue.honorablyTitled("Mistr. Fluffykins, MD"));
     }
 
     @Test
     public void testHonorablyTitledFalseNoCredentialsListedTitle() {
-        assertFalse("Detected false credentials", Rescue.honorablyTitled("Judge Fluffykins"));
+        assertFalse("Returned true without credentials", Rescue.honorablyTitled("Judge Fluffykins"));
     }
 
     @Test
     public void testHonorablyTitledFalseNoCredentialsPeriodTitle() {
-        assertFalse("Detected false credentials", Rescue.honorablyTitled("Mr. Fluffykins"));
+        assertFalse("Returned true without credentials", Rescue.honorablyTitled("Mr. Fluffykins"));
     }
 
     @Test
@@ -93,23 +98,18 @@ public class Examples {
     }
 
     @Test
-    public void testHonorablyTitledFalseOutOfOrderCredentialsListedTitle() {
-        assertFalse("Produced true on out of order credentials with listed title", Rescue.honorablyTitled("Judge, MD Fluffykins"));
-    }
-
-    @Test
-    public void testHonorablyTitledFalseOutOfOrderCredentialsPeriodTitle() {
-        assertFalse("Produced true on out of order credentials with listed title", Rescue.honorablyTitled("Dr., MD Fluffykins"));
-    }
-
-    @Test
     public void testHonorablyTitledTrueListedTitle() {
-        assertTrue("Returned false on both given title and credentials", Rescue.honorablyTitled("Count Fluffykins, Esq."));
+        assertTrue("Returned false with both given title and credentials", Rescue.honorablyTitled("Count Fluffykins, Esq."));
     }
 
     @Test
     public void testHonorablyTitledTruePeriodTitle() {
-        assertTrue("Returned false on both period title and credentials", Rescue.honorablyTitled("Dr. Fluffykins, Esq."));
+        assertTrue("Returned false with both period title and credentials", Rescue.honorablyTitled("Dr. Fluffykins, Esq."));
+    }
+
+    @Test
+    public void testHonorablyTitledTrueLongPeriodTitle() {
+        assertTrue("Returned false with both period title and credentials", Rescue.honorablyTitled("Pres. Fluffykins, Esq."));
     }
 
     // Chinchilla Feed Method Tests
@@ -244,17 +244,17 @@ public class Examples {
 
     @Test
     public void testGoatBloatedWithLongerCurrentWeightList() {
-        ArrayList<Double> currentWeights = new ArrayList<Double>(Arrays.asList(15.0, 10.0, 10.0, 30.0));
+        ArrayList<Double> currentWeights = new ArrayList<Double>(Arrays.asList(-15.0, 10.0, 10.0, 30.0));
         ArrayList<Double> targetWeights = new ArrayList<Double>(Arrays.asList(15.0, 20.0, 10.0));
         double allowedError = 5.0;
-        assertEquals("Failed uneven list test", 1, Rescue.goatBloat(currentWeights, targetWeights, allowedError));
+        assertEquals("Failed uneven list test (longer current weight)", 1, Rescue.goatBloat(currentWeights, targetWeights, allowedError));
     }
 
     @Test
     public void testGoatBloatedWithLongerTargetWeightList() {
-        ArrayList<Double> currentWeights = new ArrayList<Double>(Arrays.asList(15.0, 10.0, 10.0));
+        ArrayList<Double> currentWeights = new ArrayList<Double>(Arrays.asList(-15.0, 10.0, 10.0));
         ArrayList<Double> targetWeights = new ArrayList<Double>(Arrays.asList(15.0, 20.0, 10.0, 30.0));
         double allowedError = 5.0;
-        assertEquals("Failed uneven list test", 1, Rescue.goatBloat(currentWeights, targetWeights, allowedError));
+        assertEquals("Failed uneven list test (longer target weight)", 1, Rescue.goatBloat(currentWeights, targetWeights, allowedError));
     }
 }
