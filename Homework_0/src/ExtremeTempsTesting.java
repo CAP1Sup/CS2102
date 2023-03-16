@@ -59,6 +59,23 @@ public class ExtremeTempsTesting {
     }
 
     @Test
+    public void testExtremeTempArrayMethodDifferentTempLengths() {
+        double[][] temps = {
+                { 98.6d, 100.0d, 99.0d },
+                { 99.2d, 101.1d },
+                { 102.5d, 96.6d, 93.0d, 99.9d } };
+
+        MinMaxTemp extremeTemps[] = Rescue.extremeTemps(temps);
+
+        assertEquals("Failed first array min", 98.6d, extremeTemps[0].min, 0.01d);
+        assertEquals("Failed first array max", 100.0d, extremeTemps[0].max, 0.01d);
+        assertEquals("Failed second array min", 99.2d, extremeTemps[1].min, 0.01d);
+        assertEquals("Failed second array max", 101.1d, extremeTemps[1].max, 0.01d);
+        assertEquals("Failed third array min", 93.0d, extremeTemps[2].min, 0.01d);
+        assertEquals("Failed third array max", 102.5d, extremeTemps[2].max, 0.01d);
+    }
+
+    @Test
     public void testExtremeTempArrayMethodEmptyArray() {
         double temps[][] = {};
         assertNull("Empty array doesn't return null with array method", Rescue.extremeTemps(temps));
