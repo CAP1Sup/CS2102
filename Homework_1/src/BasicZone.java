@@ -42,6 +42,9 @@ public abstract class BasicZone implements IZone {
      * @return the average age
      */
     public double averageAge() {
+        if (animals.size() < 1) {
+            return 0.0;
+        }
         double ageSum = 0;
         for (BasicAnimal animal : animals) {
             ageSum += animal.age;

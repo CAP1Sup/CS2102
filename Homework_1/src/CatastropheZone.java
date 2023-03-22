@@ -3,7 +3,7 @@ import java.util.LinkedList;
 public class CatastropheZone extends BasicZone {
 
     public CatastropheZone() {
-        super("Cat: %d lbs. of dry food | %d cans of wet food", new String[]{"dry", "wet"});
+        super("Cat: %s lbs. of dry food | %s cans of wet food", new String[]{"dry", "wet"});
     }
 
     @Override
