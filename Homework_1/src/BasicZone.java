@@ -13,8 +13,9 @@ public abstract class BasicZone implements IZone {
         foodStoreQuantities = new int[foodStoreNames.length];
     }
 
-    public void registerAnimal(BasicAnimal animal) {
+    public IZone registerAnimal(BasicAnimal animal) {
         animals.add(animal);
+        return this;
     }
 
     /**
@@ -48,19 +49,47 @@ public abstract class BasicZone implements IZone {
         return (ageSum / (double) animals.size());
     }
 
-    /*
-     * TODO: COMPLETE MESS, NOT DONE YET
-     * public String changeFeed(String food, Integer quantity) {
-     *
-     * return String.format(baseMarque, foodStoreQuantities);
-     * }
-     *
-     * private void changeFeedBy(String food, Integer quantity) {
-     * for (String name : foodStoreNames) {
-     * if (name.equals(food)) {
-     *
-     * }
-     * }
-     * }
+    /**
+     * Changes the feed stores of the zone,
+     * Generates a string label for the zone pantry marquee
+     * @param food the type of food being added
+     * @param quantity the amount of food being added or subtracked
+     * @return a string of the form "Species: # unit of food-type | ..."
+     *         where # is either a number or the text "unknown" if the amount is currently < 0
      */
+    public String changeFeed(String food, Integer quantity) {
+        foodStoreQuantities[findFeedIndex(food)] += quantity;
+        return String.format(baseMarque, (Object[])quantitiesToStrings());
+    }
+
+    /**
+     * Finds the index corresponding to the name of the food
+     * @param food Name of food
+     * @return The index associated (null if not found)
+     */
+    private Integer findFeedIndex(String food) {
+        for (int nameIndex = 0; nameIndex < foodStoreNames.length; nameIndex++) {
+            if (foodStoreNames[nameIndex].equals(food)) {
+                return nameIndex;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns a list of food quantities (converts negative quantities to "unknown")
+     * @return Food quantities
+     */
+    private String[] quantitiesToStrings() {
+        String[] output = new String[foodStoreQuantities.length];
+        for (int index = 0; index < foodStoreQuantities.length; index++) {
+            if (foodStoreQuantities[index] >= 0) {
+                output[index] = Integer.toString(foodStoreQuantities[index]);
+            }
+            else {
+                output[index] = "unknown";
+            }
+        }
+        return output;
+    }
 }

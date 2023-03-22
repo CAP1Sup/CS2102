@@ -8,26 +8,7 @@ public class CatastropheZone extends BasicZone {
 
     @Override
     public IZone registerAdoptable(String name, Double age, Double currentWeight, Coord whereabouts) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registerAdoptable'");
-    }
-
-    @Override
-    public int totalYoungins() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'totalYoungins'");
-    }
-
-    @Override
-    public double averageAge() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'averageAge'");
-    }
-
-    @Override
-    public String changeFeed(String food, Integer quantity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'changeFeed'");
+        return registerAnimal(new Cat(name, age, currentWeight, whereabouts));
     }
 
     @Override
