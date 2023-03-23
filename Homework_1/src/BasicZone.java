@@ -55,18 +55,21 @@ public abstract class BasicZone implements IZone {
     /**
      * Changes the feed stores of the zone,
      * Generates a string label for the zone pantry marquee
-     * @param food the type of food being added
+     * 
+     * @param food     the type of food being added
      * @param quantity the amount of food being added or subtracked
      * @return a string of the form "Species: # unit of food-type | ..."
-     *         where # is either a number or the text "unknown" if the amount is currently < 0
+     *         where # is either a number or the text "unknown" if the amount is
+     *         currently < 0
      */
     public String changeFeed(String food, Integer quantity) {
         foodStoreQuantities[findFeedIndex(food)] += quantity;
-        return String.format(baseMarque, (Object[])quantitiesToStrings());
+        return String.format(baseMarque, (Object[]) quantitiesToStrings());
     }
 
     /**
      * Finds the index corresponding to the name of the food
+     * 
      * @param food Name of food
      * @return The index associated (null if not found)
      */
@@ -81,6 +84,7 @@ public abstract class BasicZone implements IZone {
 
     /**
      * Returns a list of food quantities (converts negative quantities to "unknown")
+     * 
      * @return Food quantities
      */
     private String[] quantitiesToStrings() {
@@ -88,8 +92,7 @@ public abstract class BasicZone implements IZone {
         for (int index = 0; index < foodStoreQuantities.length; index++) {
             if (foodStoreQuantities[index] >= 0) {
                 output[index] = Integer.toString(foodStoreQuantities[index]);
-            }
-            else {
+            } else {
                 output[index] = "unknown";
             }
         }

@@ -38,16 +38,17 @@ public class Examples {
         CatastropheZone catZone = new CatastropheZone();
         catZone.changeFeed("dry", 1);
         catZone.changeFeed("dry", 2);
-        assertEquals("Cat feed display not correct", "Cat: 3 lbs. of dry food | 2 cans of wet food", catZone.changeFeed("wet", 2));
+        assertEquals("Cat feed display not correct", "Cat: 3 lbs. of dry food | 2 cans of wet food",
+                catZone.changeFeed("wet", 2));
     }
 
     @Test
     public void testChangeFeedNegNums() {
         CatastropheZone catZone = new CatastropheZone();
         catZone.changeFeed("dry", -1);
-        assertEquals("Cat feed display not correct", "Cat: unknown lbs. of dry food | 2 cans of wet food", catZone.changeFeed("wet", 2));
+        assertEquals("Cat feed display not correct", "Cat: unknown lbs. of dry food | 2 cans of wet food",
+                catZone.changeFeed("wet", 2));
     }
-
 
     // Honorably Titled Method Tests
     @Test
@@ -77,13 +78,4 @@ public class Examples {
         cat.bestowCredential("PHD");
         assertFalse("Detected false listed title with multiple creds", cat.honorablyTitled());
     }
-
-    @Test
-    public void testHonorablyTitledMultipleCreds() {
-        Cat cat = new Cat("Claws", 1.0, 120.0, new Coord(0, 0));
-        cat.bestowCredential("MD");
-        cat.bestowCredential("PHD");
-        assertFalse("Detected false listed title with multiple creds", cat.honorablyTitled());
-    }
-
 }
