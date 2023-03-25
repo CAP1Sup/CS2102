@@ -1,7 +1,7 @@
 public abstract class BasicAnimal extends Adoptable {
 
     String title = "";
-    String credentials;
+    String credentials = "";
 
     /**
      * Creates a profile for an adoptable pet-to-be
@@ -28,7 +28,7 @@ public abstract class BasicAnimal extends Adoptable {
         if (!title.equals("")) {
             result = title.concat(" ").concat(result);
         }
-        if (credentials != null) {
+        if (!credentials.isEmpty()) {
             result = result.concat(", ").concat(credentials);
         }
         return result;
@@ -41,7 +41,7 @@ public abstract class BasicAnimal extends Adoptable {
      */
     @Override
     public Boolean honorablyTitled() {
-        return !(title.equals("") || credentials == null);
+        return !(title.equals("") || credentials.isEmpty());
     }
 
     /**
@@ -66,10 +66,10 @@ public abstract class BasicAnimal extends Adoptable {
      */
     @Override
     public void bestowCredential(String credential) {
-        if (credentials == null) {
+        if (credentials.isEmpty()) {
             credentials = credential;
         } else {
-            credentials.concat(" ").concat(credential);
+            credentials = credentials.concat(" ").concat(credential);
         }
     }
 }
