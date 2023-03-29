@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public interface IWeatherStationPlusPlus {
 
 
@@ -8,7 +6,7 @@ public interface IWeatherStationPlusPlus {
      */
     public Integer lowestTemp();
     /**
-     * @return the biggest cenitmeter data of valid readings (or -999 if no cms read)
+     * @return the biggest centimeter data of valid readings (or -999 if no cms read)
      */
     public Integer biggestCM();
 

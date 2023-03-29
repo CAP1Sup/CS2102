@@ -25,8 +25,8 @@ public class SnowReading extends SensorReading {
     public boolean equals(Object o) {
         if (o instanceof SnowReading) {
             SnowReading other = (SnowReading)o;
-            if (this.tempC == other.tempC) {
-                if (this.cm == other.cm) {
+            if (this.tempC.equals(other.tempC)) {
+                if (this.cm.equals(other.cm)) {
                     return true;
                 }
             }
@@ -42,13 +42,13 @@ public class SnowReading extends SensorReading {
     @Override
     public String toString() {
         String output;
-        if (tempC == -999) {
+        if (tempC.equals(-999)) {
             output = "Err";
         }
         else {
             output = tempC + "C";
         }
-        if (cm == -999) {
+        if (cm.equals(-999)) {
             output = output + ":Err";
         }
         else {
