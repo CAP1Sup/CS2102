@@ -1,9 +1,14 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class SnowStationSimpleIn implements IWeatherStation, IWeatherStationPlusPlus {
+public class SnowStationSimpleOut implements IWeatherStation, IWeatherStationPlusPlus {
 
     private LinkedList<SensorReading> readings = new LinkedList<SensorReading>();
+    private Integer tempMedian = -999;
+    private Integer cmMedian = -999;
+    private Integer lowestTemp = -999;
+    private Integer biggestCm = -999;
+    private Integer errorCount = 0;
 
     /**
      * Reads an ordered sequence of data from the weather sensors to store in the
@@ -16,6 +21,50 @@ public class SnowStationSimpleIn implements IWeatherStation, IWeatherStationPlus
      */
     public void readSensorData(LinkedList<SensorReading> values) {
         readings.addAll(values);
+
+        // Create lists of temp and cm readings
+        ArrayList<Integer> tempReadings = new ArrayList<Integer>(readings.size());
+        ArrayList<Integer> cmReadings = new ArrayList<Integer>(readings.size());
+
+        // Fill the reading lists with sensor readings
+        for (SensorReading reading : readings) {
+            if (!reading.tempC.equals(-999)) {
+                tempReadings.add(reading.tempC);
+            }
+            if (!reading.cm.equals(-999)) {
+                cmReadings.add(reading.cm);
+            }
+        }
+
+        // Compute the medians
+        tempMedian = computeMedian(tempReadings);
+        cmMedian = computeMedian(cmReadings);
+
+        if (readings.isEmpty()) {
+            lowestTemp = -999;
+            biggestCm = -999;
+            errorCount = 0;
+        } else {
+            lowestTemp = Integer.MAX_VALUE;
+            biggestCm = readings.get(0).cm;
+            errorCount = 0;
+            for (SensorReading reading : readings) {
+                if (!reading.tempC.equals(-999)) {
+                    if (reading.tempC < lowestTemp) {
+                        lowestTemp = reading.tempC;
+                    }
+                }
+                if (!reading.cm.equals(-999)) {
+                    if (reading.cm > biggestCm) {
+                        biggestCm = reading.cm;
+                    }
+                }
+                if (reading.cm == -999 || reading.tempC == -999){
+                    errorCount++;
+                }
+            }
+        }
+
     };
 
     /**
@@ -40,25 +89,6 @@ public class SnowStationSimpleIn implements IWeatherStation, IWeatherStationPlus
      *         reading should have -999 for that data, respectively
      */
     public SensorReading medianReading() {
-
-        // Create lists of temp and cm readings
-        ArrayList<Integer> tempReadings = new ArrayList<Integer>(readings.size());
-        ArrayList<Integer> cmReadings = new ArrayList<Integer>(readings.size());
-
-        // Fill the reading lists with sensor readings
-        for (SensorReading reading : readings) {
-            if (!reading.tempC.equals(-999)) {
-                tempReadings.add(reading.tempC);
-            }
-            if (!reading.cm.equals(-999)) {
-                cmReadings.add(reading.cm);
-            }
-        }
-
-        // Compute the medians
-        Integer tempMedian = computeMedian(tempReadings);
-        Integer cmMedian = computeMedian(cmReadings);
-
         return new SnowReading(tempMedian, cmMedian);
     };
 
@@ -99,51 +129,22 @@ public class SnowStationSimpleIn implements IWeatherStation, IWeatherStationPlus
      * @return the lowest temperature read (or -999 if no temps read)
      */
     public Integer lowestTemp() {
-        if (readings.isEmpty()) {
-            return -999;
-        }
-        Integer lowest = Integer.MAX_VALUE;
-        for (SensorReading reading : readings) {
-            if (!reading.tempC.equals(-999)) {
-                if (reading.tempC < lowest) {
-                    lowest = reading.tempC;
-                }
-            }
-        }
-        return lowest;
+        return lowestTemp;
     }
 
     /**
-     * @return the biggest centimeter data of valid readings (or -999 if no cms
-     *         read)
+     * @return the biggest centimeter data of valid readings (or -999 if no cms read)
      */
     public Integer biggestCM() {
-        if (readings.isEmpty()) {
-            return -999;
-        }
-        Integer biggestCmSoFar = readings.get(0).cm;
-        for (SensorReading reading : readings) {
-            if (reading.cm > biggestCmSoFar && (!reading.cm.equals(-999))) {
-                biggestCmSoFar = reading.cm;
-            }
-        }
-        return biggestCmSoFar;
+        return biggestCm;
     }
 
     /**
      * Count an error when either the temp OR the cm of a SensorReading was -999
-     *
      * @return how many error readings there were
      *
      */
     public Integer amtErrors() {
-        Integer numErrorReadings = 0;
-        for (SensorReading reading : readings){
-            if (reading.cm == -999 || reading.tempC == -999){
-                numErrorReadings++;
-            }
-        }
-        return numErrorReadings;
+        return errorCount;
     }
-
 }
