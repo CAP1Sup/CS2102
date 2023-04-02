@@ -5,7 +5,7 @@ public abstract class BasicZone implements IZone {
     private String baseMarque;
     private String[] foodStoreNames;
     private int[] foodStoreQuantities;
-    LinkedList<BasicAnimal> animals = new LinkedList<BasicAnimal>();
+    private LinkedList<BasicAnimal> animals = new LinkedList<BasicAnimal>();
 
     /**
      * Creates a new zone with the given base marquee and food store names

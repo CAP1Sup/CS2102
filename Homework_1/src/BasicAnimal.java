@@ -1,7 +1,7 @@
 public abstract class BasicAnimal extends Adoptable {
 
-    String title = "";
-    String credentials = "";
+    private String title = "";
+    private String credentials = "";
 
     /**
      * Creates a profile for an adoptable pet-to-be
