@@ -3,12 +3,14 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 public class Streamometer {
-    public GregorianCalendar today;
-    public LinkedList<DailyRatings> dailyRatings;
+    private GregorianCalendar today;
+    private LinkedList<DailyRatings> dailyRatings = new LinkedList<DailyRatings>();
 
     public Streamometer(GregorianCalendar today, LinkedList<DailyRatings> dailyRatings) {
-        this.today = today;
-        this.dailyRatings = dailyRatings;
+        this.today = (GregorianCalendar) today.clone();
+        for (DailyRatings ratings : dailyRatings) {
+            this.dailyRatings.add(ratings);
+        }
     }
 
     /**
@@ -21,12 +23,12 @@ public class Streamometer {
         for (int ratingIndex = dailyRatings.size() - 1; ratingIndex >= 0; ratingIndex--) {
 
             // Break the for loop if we've exceed this month's ratings
-            if (!sameMonth(dailyRatings.get(ratingIndex).date, today)) {
+            if (!sameMonth(dailyRatings.get(ratingIndex).getDate(), today)) {
                 break;
             }
 
             // Check the if the day has a lower rank
-            for (Integer rank : dailyRatings.get(ratingIndex).ranks) {
+            for (Integer rank : dailyRatings.get(ratingIndex).getRanks()) {
                 if (rank < lowestRank) {
                     lowestRank = rank;
                 }
@@ -43,19 +45,19 @@ public class Streamometer {
      */
     public int totalSubscribers(int month, int year) {
 
-        int startingIndex = -1;
-        GregorianCalendar targetMonth = new GregorianCalendar(year, month, 0);
+        int startingIndex = 0;
+        GregorianCalendar targetMonth = new GregorianCalendar(year, month, 1);
 
         // Loop through until the starting index of the month is found
         while (startingIndex < dailyRatings.size()) {
-            if (sameMonth(dailyRatings.get(startingIndex).date, targetMonth)) {
+            if (sameMonth(dailyRatings.get(startingIndex).getDate(), targetMonth)) {
                 break;
             }
             startingIndex++;
         }
 
         // Starting index wasn't found, return 0
-        if (startingIndex == -1) {
+        if (startingIndex >= dailyRatings.size()) {
             return 0;
         }
 
@@ -63,10 +65,10 @@ public class Streamometer {
 
         // Loop through and add the subscribers
         while (startingIndex < dailyRatings.size()) {
-            if (!sameMonth(dailyRatings.get(startingIndex).date, targetMonth)) {
+            if (!sameMonth(dailyRatings.get(startingIndex).getDate(), targetMonth)) {
                 break;
             }
-            for (Integer subs : dailyRatings.get(startingIndex).subs) {
+            for (Integer subs : dailyRatings.get(startingIndex).getSubs()) {
                 totalSubscribers += subs;
             }
         }
@@ -79,12 +81,13 @@ public class Streamometer {
      * @param analytics List of analytics from different platforms
      */
     public void addTodaysAnalytics(LinkedList<Analytics> analytics) {
-        DailyRatings todaysRatings = new DailyRatings((GregorianCalendar) today.clone(), null, null);
+        LinkedList<Integer> ranks = new LinkedList<Integer>();
+        LinkedList<Integer> subs = new LinkedList<Integer>();
         for (Analytics analytic : analytics) {
-            todaysRatings.ranks.add(analytic.rank);
-            todaysRatings.subs.add(analytic.subs);
+            ranks.add(analytic.getRank());
+            subs.add(analytic.getSubs());
         }
-        dailyRatings.add(todaysRatings);
+        dailyRatings.add(new DailyRatings((GregorianCalendar) today.clone(), ranks, subs));
         today.add(GregorianCalendar.DAY_OF_YEAR, 1);
     }
 
