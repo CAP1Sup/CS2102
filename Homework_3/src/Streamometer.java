@@ -71,6 +71,7 @@ public class Streamometer {
             for (Integer subs : dailyRatings.get(startingIndex).getSubs()) {
                 totalSubscribers += subs;
             }
+            startingIndex++;
         }
 
         return totalSubscribers;
