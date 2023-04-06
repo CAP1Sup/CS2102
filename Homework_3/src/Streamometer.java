@@ -6,6 +6,12 @@ public class Streamometer {
     private GregorianCalendar today;
     private LinkedList<DailyRatings> dailyRatings = new LinkedList<DailyRatings>();
 
+    /**
+     * Creates a new Streamometer
+     *
+     * @param today        The current date
+     * @param dailyRatings A list of the current daily ratings
+     */
     public Streamometer(GregorianCalendar today, LinkedList<DailyRatings> dailyRatings) {
         this.today = (GregorianCalendar) today.clone();
         for (DailyRatings ratings : dailyRatings) {
@@ -14,7 +20,9 @@ public class Streamometer {
     }
 
     /**
-     * Finds the best rank across all platforms in the current month. Returns Integer.MAX_VALUE if no ranks exist for this month
+     * Finds the best rank across all platforms in the current month. Returns
+     * Integer.MAX_VALUE if no ranks exist for this month
+     *
      * @return The best (lowest) rank this month
      */
     public int bestRankThisMonth() {
@@ -38,9 +46,11 @@ public class Streamometer {
     }
 
     /**
-     * Returns the total number of subscribers gained across all platforms in the given month and year. 0 is returned if data doesn't exist for given month
+     * Returns the total number of subscribers gained across all platforms in the
+     * given month and year. 0 is returned if data doesn't exist for given month
+     *
      * @param month Month number subscriptions occurred in, starting at 0
-     * @param year Year subscriptions occurred
+     * @param year  Year subscriptions occurred
      * @return The total number of subscribers gained over the given month
      */
     public int totalSubscribers(int month, int year) {
@@ -78,7 +88,9 @@ public class Streamometer {
     }
 
     /**
-     * Adds analytics from different platforms for a given day. Day is incremented with each call
+     * Adds analytics from different platforms for a given day. Day is incremented
+     * with each call
+     *
      * @param analytics List of analytics from different platforms
      */
     public void addTodaysAnalytics(LinkedList<Analytics> analytics) {
@@ -94,9 +106,11 @@ public class Streamometer {
 
     /**
      * Checks if the calendars have the same month and year
-     * @param calendar First calendar to compare
+     *
+     * @param calendar      First calendar to compare
      * @param otherCalendar Second calender to compare
-     * @return If the first calendar and second calendar share the same month and year
+     * @return If the first calendar and second calendar share the same month and
+     *         year
      */
     private boolean sameMonth(GregorianCalendar calendar, GregorianCalendar otherCalendar) {
         if (calendar.get(GregorianCalendar.YEAR) == otherCalendar.get(GregorianCalendar.YEAR)) {
