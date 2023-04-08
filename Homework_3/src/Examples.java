@@ -181,6 +181,18 @@ public class Examples {
         assertEquals(0, s.totalSubscribers(0, 2023));
     }
 
+    @Test
+    public void testStreamometerImmutableDate() {
+        GregorianCalendar date = new GregorianCalendar(2023, 1, 1);
+        Streamometer s = new Streamometer(date, new DailyRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        s.addTodaysAnalytics(analytics1);
+        date.set(2023, 2, 1);
+        // Should still be in February, not March (since date is immutable)
+        assertEquals(3, s.bestRankThisMonth());
+    }
+
     // ArrayListRatingStorage tests
     @Test
     public void testArrayListRatingStorageBestRankSingleDaySingleAnalytics() {
