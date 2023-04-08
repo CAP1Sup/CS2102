@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Streamometer {
     private GregorianCalendar today;
-    private LinkedList<DailyRatings> dailyRatings = new LinkedList<DailyRatings>();
+    private RatingStorage ratingStorage;
 
     /**
      * Creates a new Streamometer
@@ -12,11 +12,9 @@ public class Streamometer {
      * @param today        The current date
      * @param dailyRatings A list of the current daily ratings
      */
-    public Streamometer(GregorianCalendar today, LinkedList<DailyRatings> dailyRatings) {
+    public Streamometer(GregorianCalendar today, RatingStorage ratingStorage) {
         this.today = (GregorianCalendar) today.clone();
-        for (DailyRatings ratings : dailyRatings) {
-            this.dailyRatings.add(ratings);
-        }
+        this.ratingStorage = ratingStorage;
     }
 
     /**
@@ -26,23 +24,7 @@ public class Streamometer {
      * @return The best (lowest) rank this month
      */
     public int bestRankThisMonth() {
-        int lowestRank = Integer.MAX_VALUE;
-        // Start from the end of the list, which will have the most recent data
-        for (int ratingIndex = dailyRatings.size() - 1; ratingIndex >= 0; ratingIndex--) {
-
-            // Break the for loop if we've exceed this month's ratings
-            if (!sameMonth(dailyRatings.get(ratingIndex).getDate(), today)) {
-                break;
-            }
-
-            // Check the if the day has a lower rank
-            for (Integer rank : dailyRatings.get(ratingIndex).getRanks()) {
-                if (rank < lowestRank) {
-                    lowestRank = rank;
-                }
-            }
-        }
-        return lowestRank;
+        return ratingStorage.bestMonthlyRank(today);
     }
 
     /**
@@ -54,37 +36,8 @@ public class Streamometer {
      * @return The total number of subscribers gained over the given month
      */
     public int totalSubscribers(int month, int year) {
-
-        int startingIndex = 0;
         GregorianCalendar targetMonth = new GregorianCalendar(year, month, 1);
-
-        // Loop through until the starting index of the month is found
-        while (startingIndex < dailyRatings.size()) {
-            if (sameMonth(dailyRatings.get(startingIndex).getDate(), targetMonth)) {
-                break;
-            }
-            startingIndex++;
-        }
-
-        // Starting index wasn't found, return 0
-        if (startingIndex >= dailyRatings.size()) {
-            return 0;
-        }
-
-        int totalSubscribers = 0;
-
-        // Loop through and add the subscribers
-        while (startingIndex < dailyRatings.size()) {
-            if (!sameMonth(dailyRatings.get(startingIndex).getDate(), targetMonth)) {
-                break;
-            }
-            for (Integer subs : dailyRatings.get(startingIndex).getSubs()) {
-                totalSubscribers += subs;
-            }
-            startingIndex++;
-        }
-
-        return totalSubscribers;
+        return ratingStorage.totalSubs(targetMonth);
     }
 
     /**
@@ -94,30 +47,8 @@ public class Streamometer {
      * @param analytics List of analytics from different platforms
      */
     public void addTodaysAnalytics(LinkedList<Analytics> analytics) {
-        LinkedList<Integer> ranks = new LinkedList<Integer>();
-        LinkedList<Integer> subs = new LinkedList<Integer>();
-        for (Analytics analytic : analytics) {
-            ranks.add(analytic.getRank());
-            subs.add(analytic.getSubs());
-        }
-        dailyRatings.add(new DailyRatings((GregorianCalendar) today.clone(), ranks, subs));
+        ratingStorage.addAnalytics(today, analytics);
         today.add(GregorianCalendar.DAY_OF_YEAR, 1);
     }
 
-    /**
-     * Checks if the calendars have the same month and year
-     *
-     * @param calendar      First calendar to compare
-     * @param otherCalendar Second calender to compare
-     * @return If the first calendar and second calendar share the same month and
-     *         year
-     */
-    private boolean sameMonth(GregorianCalendar calendar, GregorianCalendar otherCalendar) {
-        if (calendar.get(GregorianCalendar.YEAR) == otherCalendar.get(GregorianCalendar.YEAR)) {
-            if (calendar.get(GregorianCalendar.MONTH) == otherCalendar.get(GregorianCalendar.MONTH)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

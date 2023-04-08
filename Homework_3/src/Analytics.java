@@ -5,7 +5,7 @@ public class Analytics {
 
     /**
      * Creates a new Analytics object, which contains two integer fields of the
-     * user's rank and total number of subs
+     * streamer's rank and total number of subs
      */
     public Analytics(int rank, int subs) {
         this.rank = rank;
@@ -13,16 +13,20 @@ public class Analytics {
     }
 
     /**
-     * Returns the user's rank, can be used in other classes since Analytics fields
+     * Returns the streamer's rank, can be used in other classes since Analytics fields
      * are private
+     *
+     * @return Streamer's rank
      */
     public int getRank() {
         return this.rank;
     }
 
     /**
-     * Returns the user's total number of subscribers, can be used in other classes
+     * Returns the change in streamer's total number of subscribers, can be used in other classes
      * since Analytics fields are private
+     *
+     * @return Streamer's change in subscriptions
      */
     public int getSubs() {
         return this.subs;

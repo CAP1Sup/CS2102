@@ -6,10 +6,10 @@ import org.junit.Test;
 
 public class Examples {
 
+    // DailyRatingStorage tests
     @Test
-    public void testBestRankSingleDaySingleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 2, 19), drs);
+    public void testDailyRatingStorageBestRankSingleDaySingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 2, 19), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         s.addTodaysAnalytics(analytics1);
@@ -17,9 +17,8 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsSingleDaySingleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 2, 14), drs);
+    public void testDailyRatingStorageTotalSubsSingleDaySingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 2, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         s.addTodaysAnalytics(analytics1);
@@ -27,9 +26,8 @@ public class Examples {
     }
 
     @Test
-    public void testBestRankSingleDayMultipleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageBestRankSingleDayMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(1, 50));
@@ -38,9 +36,8 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsSingleDayMultipleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageTotalSubsSingleDayMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(1, 50));
@@ -49,25 +46,22 @@ public class Examples {
     }
 
     @Test
-    public void testBestRankSingleDayNoAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageBestRankSingleDayNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         s.addTodaysAnalytics(new LinkedList<Analytics>());
         assertEquals(Integer.MAX_VALUE, s.bestRankThisMonth());
     }
 
     @Test
-    public void testTotalSubsSingleDayNoAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageTotalSubsSingleDayNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         s.addTodaysAnalytics(new LinkedList<Analytics>());
         assertEquals(0, s.totalSubscribers(1, 2023));
     }
 
     @Test
-    public void testBestRankSingleDayWrongMonthAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), drs);
+    public void testDailyRatingStorageBestRankSingleDayWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(1, 50));
@@ -76,9 +70,8 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsSingleDayWrongMonthAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), drs);
+    public void testDailyRatingStorageTotalSubsSingleDayWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(1, 50));
@@ -87,9 +80,8 @@ public class Examples {
     }
 
     @Test
-    public void testBestRankMultipleDaysSingleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageBestRankMultipleDaysSingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         s.addTodaysAnalytics(analytics1);
@@ -100,9 +92,8 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsMultipleDaysSingleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageTotalSubsMultipleDaysSingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         s.addTodaysAnalytics(analytics1);
@@ -113,9 +104,8 @@ public class Examples {
     }
 
     @Test
-    public void testBestRankMultipleDaysMultipleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageBestRankMultipleDaysMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(4, 50));
@@ -128,9 +118,8 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsMultipleDaysMultipleAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageTotalSubsMultipleDaysMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(4, 50));
@@ -143,9 +132,8 @@ public class Examples {
     }
 
     @Test
-    public void testBestRankMultipleDaysNoAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageBestRankMultipleDaysNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(4, 50));
@@ -155,9 +143,8 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsMultipleDaysNoAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), drs);
+    public void testDailyRatingStorageTotalSubsMultipleDaysNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(4, 50));
@@ -167,9 +154,8 @@ public class Examples {
     }
 
     @Test
-    public void testBestRankMultipleDaysWrongMonthAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 29), drs);
+    public void testDailyRatingStorageBestRankMultipleDaysWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 29), new DailyRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(4, 50));
@@ -182,9 +168,183 @@ public class Examples {
     }
 
     @Test
-    public void testTotalSubsMultipleDaysWrongMonthAnalytics() {
-        LinkedList<DailyRatings> drs = new LinkedList<>();
-        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), drs);
+    public void testDailyRatingStorageTotalSubsMultipleDaysWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), new DailyRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(4, 50));
+        s.addTodaysAnalytics(analytics1);
+        LinkedList<Analytics> analytics2 = new LinkedList<>();
+        analytics2.add(new Analytics(2, 200));
+        analytics2.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics2);
+        assertEquals(0, s.totalSubscribers(0, 2023));
+    }
+
+    // ArrayListRatingStorage tests
+    @Test
+    public void testArrayListRatingStorageBestRankSingleDaySingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 2, 19), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        s.addTodaysAnalytics(analytics1);
+        assertEquals(3, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsSingleDaySingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 2, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        s.addTodaysAnalytics(analytics1);
+        assertEquals(100, s.totalSubscribers(2, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankSingleDayMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics1);
+        assertEquals(1, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsSingleDayMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics1);
+        assertEquals(150, s.totalSubscribers(1, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankSingleDayNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        s.addTodaysAnalytics(new LinkedList<Analytics>());
+        assertEquals(Integer.MAX_VALUE, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsSingleDayNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        s.addTodaysAnalytics(new LinkedList<Analytics>());
+        assertEquals(0, s.totalSubscribers(1, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankSingleDayWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(new LinkedList<Analytics>());
+        assertEquals(Integer.MAX_VALUE, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsSingleDayWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(new LinkedList<Analytics>());
+        assertEquals(0, s.totalSubscribers(0, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankMultipleDaysSingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        s.addTodaysAnalytics(analytics1);
+        LinkedList<Analytics> analytics2 = new LinkedList<>();
+        analytics2.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics2);
+        assertEquals(1, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsMultipleDaysSingleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        s.addTodaysAnalytics(analytics1);
+        LinkedList<Analytics> analytics2 = new LinkedList<>();
+        analytics2.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics2);
+        assertEquals(150, s.totalSubscribers(1, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankMultipleDaysMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(4, 50));
+        s.addTodaysAnalytics(analytics1);
+        LinkedList<Analytics> analytics2 = new LinkedList<>();
+        analytics2.add(new Analytics(2, 200));
+        analytics2.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics2);
+        assertEquals(1, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsMultipleDaysMultipleAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(4, 50));
+        s.addTodaysAnalytics(analytics1);
+        LinkedList<Analytics> analytics2 = new LinkedList<>();
+        analytics2.add(new Analytics(2, 200));
+        analytics2.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics2);
+        assertEquals(400, s.totalSubscribers(1, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankMultipleDaysNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(4, 50));
+        s.addTodaysAnalytics(analytics1);
+        s.addTodaysAnalytics(new LinkedList<Analytics>());
+        assertEquals(3, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsMultipleDaysNoAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 1, 14), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(4, 50));
+        s.addTodaysAnalytics(analytics1);
+        s.addTodaysAnalytics(new LinkedList<Analytics>());
+        assertEquals(150, s.totalSubscribers(1, 2023));
+    }
+
+    @Test
+    public void testArrayListRatingStorageBestRankMultipleDaysWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 29), new ArrayListRatingStorage());
+        LinkedList<Analytics> analytics1 = new LinkedList<>();
+        analytics1.add(new Analytics(3, 100));
+        analytics1.add(new Analytics(4, 50));
+        s.addTodaysAnalytics(analytics1);
+        LinkedList<Analytics> analytics2 = new LinkedList<>();
+        analytics2.add(new Analytics(2, 200));
+        analytics2.add(new Analytics(1, 50));
+        s.addTodaysAnalytics(analytics2);
+        assertEquals(Integer.MAX_VALUE, s.bestRankThisMonth());
+    }
+
+    @Test
+    public void testArrayListRatingStorageTotalSubsMultipleDaysWrongMonthAnalytics() {
+        Streamometer s = new Streamometer(new GregorianCalendar(2023, 3, 30), new ArrayListRatingStorage());
         LinkedList<Analytics> analytics1 = new LinkedList<>();
         analytics1.add(new Analytics(3, 100));
         analytics1.add(new Analytics(4, 50));
