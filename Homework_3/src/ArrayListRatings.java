@@ -1,19 +1,19 @@
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 
-public class DailyRatings {
+public class ArrayListRatings {
     private final GregorianCalendar date;
-    private final LinkedList<Integer> ranks;
-    private final LinkedList<Integer> subs;
+    private final ArrayList<Integer> ranks;
+    private final ArrayList<Integer> subs;
 
     /**
-     * Creates a new DailyRatings object
+     * Creates a new ArrayListRatings object
      *
      * @param date  The date of the ratings
      * @param ranks The ranks of the stream on each platform
      * @param subs  The number of subscribers gained on each platform
      */
-    public DailyRatings(GregorianCalendar date, LinkedList<Integer> ranks, LinkedList<Integer> subs) {
+    public ArrayListRatings(GregorianCalendar date, ArrayList<Integer> ranks, ArrayList<Integer> subs) {
         this.date = date;
         this.ranks = ranks;
         this.subs = subs;
@@ -33,8 +33,8 @@ public class DailyRatings {
      *
      * @return The ranks of the stream on each platform
      */
-    public LinkedList<Integer> getRanks() {
-        LinkedList<Integer> copy = new LinkedList<Integer>();
+    public ArrayList<Integer> getRanks() {
+        ArrayList<Integer> copy = new ArrayList<Integer>();
         for (Integer rank : this.ranks) {
             copy.add(rank);
         }
@@ -46,8 +46,8 @@ public class DailyRatings {
      *
      * @return The number of subscribers gained on each platform
      */
-    public LinkedList<Integer> getSubs() {
-        LinkedList<Integer> copy = new LinkedList<Integer>();
+    public ArrayList<Integer> getSubs() {
+        ArrayList<Integer> copy = new ArrayList<Integer>();
         for (Integer subs : this.subs) {
             copy.add(subs);
         }
