@@ -1,9 +1,9 @@
-public class MaxHeapVerifier {
+public class MinHeapVerifier {
 
     /**
-     * The binary tree, after, is a valid max heap:
+     * The binary tree, after, is a valid min heap:
      * 1. Its root element is greater than all elements in its subtree
-     * 2. All of its subtrees are also valid max heaps
+     * 2. All of its subtrees are also valid min heaps
      * 3. All of the elements in before are also present in after
      * added is present in after
      * 4. |after| is equal to |before| + 1
@@ -14,7 +14,7 @@ public class MaxHeapVerifier {
      * @return If all of the conditions for a valid addition are met
      */
     public boolean verifyAdd(IBinTree before, int added, IBinTree after) {
-        if (!new MaxHeapValidator(after).isValid()) {
+        if (!new MinHeapValidator(after).isValid()) {
             return false;
         }
         if (!new ContainsAllValidator(before, after).isValid()) {
@@ -30,9 +30,9 @@ public class MaxHeapVerifier {
     }
 
     /**
-     * The binary tree, after, is a valid max heap:
+     * The binary tree, after, is a valid min heap:
      * 1. Its root element is greater than all elements in its subtree
-     * 2. All of its subtrees are also valid max heaps
+     * 2. All of its subtrees are also valid min heaps
      * 3. All of the elements in after are also present in before
      * root is not present in after
      * 4. |after| is equal to |before| - 1
@@ -43,7 +43,7 @@ public class MaxHeapVerifier {
      * @return If all of the conditions for a valid removal are met
      */
     public boolean verifyRemoveRoot(IBinTree before, int root, IBinTree after) {
-        if (!new MaxHeapValidator(after).isValid()) {
+        if (!new MinHeapValidator(after).isValid()) {
             return false;
         }
         if (!new ContainsAllValidator(after, before).isValid()) {

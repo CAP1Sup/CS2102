@@ -134,8 +134,8 @@ public class NodeBT implements IBinTree {
                                              // going
         }
         if (keepGoing) {
-            keepGoing = this.right.accept(v); // recursivly visit the right subtree and see if the visitor wants to keep
-                                              // going
+            keepGoing = this.right.accept(v); // recursively visit the right subtree and see if the visitor wants to
+                                              // keep going
         }
         return keepGoing;
     }
