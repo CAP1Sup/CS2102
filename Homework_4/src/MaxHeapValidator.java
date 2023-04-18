@@ -1,13 +1,17 @@
 import java.util.Optional;
 
+/**
+ * Checks if a binary tree is a valid max heap
+ */
 public class MaxHeapValidator implements IValidator {
 
+    // Stores if the tree is a valid max heap
     private boolean valid = true;
 
     /**
      * The binary tree, tree, is a valid max heap:
      *
-     * @param tree Binary tree
+     * @param tree Binary tree to check
      */
     public MaxHeapValidator(IBinTree tree) {
         tree.accept(this);
@@ -58,7 +62,7 @@ public class MaxHeapValidator implements IValidator {
      * @param subtreeRoot The subtree's root
      * @return Is this node's root value smaller than the subtree's root value?
      */
-    private boolean isSmaller(int data, Optional<Integer> subtreeRoot) {
+    public static boolean isSmaller(int data, Optional<Integer> subtreeRoot) {
         if (subtreeRoot.isPresent()) {
             if (data < subtreeRoot.get()) {
                 return true;

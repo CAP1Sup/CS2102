@@ -1,12 +1,18 @@
+/**
+ * Checks if the first binary tree's size is one greater than the second binary
+ * tree's
+ */
 public class OneGreaterValidator {
 
+    // Stores if the first binary tree's size is one greater than the second
+    // binary's
     private boolean isOneGreater;
 
     /**
-     * The binary tree, first, is one greater than the binary tree, second.
+     * The binary tree "first" is one greater than the binary tree "second".
      *
-     * @param first  Binary tree
-     * @param second Binary tree
+     * @param first  Smaller binary tree
+     * @param second Larger binary tree
      */
     public OneGreaterValidator(IBinTree first, IBinTree second) {
         SizeVisitor firstSize = new SizeVisitor(first);

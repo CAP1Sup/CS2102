@@ -1,3 +1,6 @@
+/**
+ * Organizes the binary tree as a binary search tree
+ */
 public class BinarySearchTreeStrategy implements IBinTreeStrategy {
 
     /**
@@ -17,10 +20,13 @@ public class BinarySearchTreeStrategy implements IBinTreeStrategy {
 
             // Add to the left subtree
             return new NodeBT(data, left.addInt(i), right, this);
-        } else { // If right has a shallower minimum depth, fill it in!
+        } else if (i > data) {
 
             // Add to the right subtree
             return new NodeBT(data, left, right.addInt(i), this);
+        } else {
+            // Reject the value, it is already in the tree
+            return new NodeBT(data, left, right, this);
         }
     }
 
@@ -33,5 +39,4 @@ public class BinarySearchTreeStrategy implements IBinTreeStrategy {
     public NodeBT addInt(int i) {
         return new NodeBT(i, new EmptyBT(this), new EmptyBT(this), this);
     }
-
 }

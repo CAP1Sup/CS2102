@@ -1,3 +1,6 @@
+/**
+ * Builds a binary tree with the minimum heap strategy
+ */
 public class MinHeapStrategy implements IBinTreeStrategy {
 
     /**

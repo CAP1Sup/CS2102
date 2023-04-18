@@ -1,10 +1,16 @@
+/**
+ * Checks if the binary tree contains the given element
+ */
 public class ContainsElementValidator implements IValidator {
 
+    // The element to search for
     private int element;
+
+    // Stores if the tree contains the element
     private boolean containsElement = false;
 
     /**
-     * The binary tree, tree, contains the element.
+     * Checks if the binary tree "tree" contains the element.
      *
      * @param tree    Binary tree
      * @param element Element to search for
@@ -49,5 +55,4 @@ public class ContainsElementValidator implements IValidator {
     public boolean isValid() {
         return containsElement;
     }
-
 }

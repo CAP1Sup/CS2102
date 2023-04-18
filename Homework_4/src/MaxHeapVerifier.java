@@ -1,3 +1,6 @@
+/**
+ * Checks if an addition or removal to a max heap binary tree is valid
+ */
 public class MaxHeapVerifier {
 
     /**
@@ -47,6 +50,9 @@ public class MaxHeapVerifier {
             return false;
         }
         if (!new ContainsAllValidator(after, before).isValid()) {
+            return false;
+        }
+        if (new ContainsElementValidator(after, root).isValid()) {
             return false;
         }
         if (!new OneGreaterValidator(after, before).isOneGreater()) {

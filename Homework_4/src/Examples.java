@@ -3,51 +3,103 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Examples {
-    public IBinTree mtHeap = new EmptyBT(new MaxHeapStrategy());
-    public IBinTree someTree;
 
-    public Examples() {
-        // Make a valid max heap with 2 4 6 8 16 15 7 3
-        someTree = mtHeap.copy();
-        someTree.apply(new MaxHeapStrategy());
-        someTree = someTree.addInt(2).addInt(4).addInt(8).addInt(16)
-                .addInt(15).addInt(7).addInt(3);
+    // Test the max heap verifier verify add method
+    @Test
+    public void testMaxHeapVerifierAddGoodData() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertTrue(maxHeapVerifier.verifyAdd(tree, 11, tree.addInt(11)));
     }
 
     @Test
-    public void test_someTree_example1() {
-        IBinTree before = someTree.copy();
-        before.apply(new MaxHeapStrategy2());
-        IBinTree after = before.addInt(5);
-        assertTrue(new MaxHeapVerifier().verifyAdd(before, 5, after));
+    public void testMaxHeapVerifierAddNotMaxHeap() {
+        IBinTree tree = new EmptyBT();
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyAdd(tree, 11, tree.addInt(11)));
     }
 
     @Test
-    public void test_someTree_example2() {
-        IBinTree before = someTree.copy();
-        before.apply(new MaxHeapStrategyBuggy1());
-        IBinTree after = before.addInt(5);
-        assertFalse(new MaxHeapVerifier().verifyAdd(before, 5, after));
+    public void testMaxHeapVerifierAddNotContainsAll() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        IBinTree otherTree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        otherTree = addInts(otherTree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyAdd(tree, 9, otherTree));
     }
 
     @Test
-    public void test_someTree_example3() {
-        IBinTree before = IBinTree.makeTree(new int[] { 5, 1, 4 });
-        // simulate adding 3
-        IBinTree after1 = IBinTree.makeTree(new int[] { 5, 3, 4, 1 });
-        IBinTree after2 = IBinTree.makeTree(new int[] { 5, 4, 1, 3 });
-        assertTrue(new MaxHeapVerifier().verifyAdd(before, 3, after1));
-        assertTrue(new MaxHeapVerifier().verifyAdd(before, 3, after2));
+    public void testMaxHeapVerifierAddNotContainsElement() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyAdd(tree, 12, tree.addInt(11)));
     }
 
     @Test
-    public void test_someTree_example4() {
-        IBinTree before = IBinTree.makeTree(new int[] { 5, 4, 1, 3 });
-        // simulate adding 3
-        IBinTree after1 = IBinTree.makeTree(new int[] { 4, 1, 3 });
-        IBinTree after2 = IBinTree.makeTree(new int[] { 4, 3, 1 });
-        assertTrue(new MaxHeapVerifier().verifyRemoveRoot(before, 5, after1));
-        assertTrue(new MaxHeapVerifier().verifyRemoveRoot(before, 5, after2));
+    public void testMaxHeapVerifierAddNotOneGreater() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyAdd(tree, 10, tree));
     }
 
+    // Test the max heap verifier verify remove root method
+    @Test
+    public void testMaxHeapVerifierRemoveRootGoodData() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertTrue(maxHeapVerifier.verifyRemoveRoot(tree, tree.getRoot().get(), tree.removeRoot().get()));
+    }
+
+    @Test
+    public void testMaxHeapVerifierRemoveRootNotMaxHeap() {
+        IBinTree tree = new EmptyBT();
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyRemoveRoot(tree, 10, tree.removeRoot().get()));
+    }
+
+    @Test
+    public void testMaxHeapVerifierRemoveRootNotContainsAll() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        IBinTree otherTree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        otherTree = addInts(otherTree, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyRemoveRoot(tree, 10, otherTree));
+    }
+
+    @Test
+    public void testMaxHeapVerifierRemoveRootContainsElement() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyRemoveRoot(tree, 9, tree.removeRoot().get()));
+    }
+
+    @Test
+    public void testMaxHeapVerifierRemoveRootNotOneGreater() {
+        IBinTree tree = new EmptyBT(new MaxHeapStrategy());
+        tree = addInts(tree, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        MaxHeapVerifier maxHeapVerifier = new MaxHeapVerifier();
+        assertFalse(maxHeapVerifier.verifyRemoveRoot(tree, 10, tree));
+    }
+
+    /**
+     * Creates a binary tree with the given integers.
+     *
+     * @param tree The binary tree
+     * @param ints The integers to add
+     */
+    public static IBinTree addInts(IBinTree tree, int[] ints) {
+        for (int i : ints) {
+            tree = tree.addInt(i);
+        }
+        return tree;
+    }
 }

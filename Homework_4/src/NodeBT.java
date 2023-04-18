@@ -164,7 +164,7 @@ public class NodeBT implements IBinTree {
     }
 
     /**
-     * A helper method for formating numbers to 3 digits (numbers greater than 3
+     * A helper method for formatting numbers to 3 digits (numbers greater than 3
      * digits don't get pretty printed well)
      *
      * @return

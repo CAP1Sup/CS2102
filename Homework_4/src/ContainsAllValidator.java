@@ -1,13 +1,19 @@
+/**
+ * Checks if the other tree contains all the elements of the first tree
+ */
 public class ContainsAllValidator implements IValidator {
 
+    // The other tree to compare to
     private IBinTree otherTree;
+
+    // Stores if the other tree contains all the elements of the tree
     private boolean containsAllElements = true;
 
     /**
-     * Validates that otherTree, contains all elements of tree.
+     * Validates that otherTree contains all elements of tree.
      *
-     * @param tree      Binary tree
-     * @param otherTree Binary tree
+     * @param tree      Binary tree containing elements to check
+     * @param otherTree Binary tree to check if it contains all elements of tree
      */
     public ContainsAllValidator(IBinTree tree, IBinTree otherTree) {
         this.otherTree = otherTree;
@@ -54,5 +60,4 @@ public class ContainsAllValidator implements IValidator {
     public boolean isValid() {
         return containsAllElements;
     }
-
 }
