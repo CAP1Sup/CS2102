@@ -1,14 +1,15 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 public class ElectionData {
 
     // HashMap of the votes for each candidate
-    HashMap<String, Votes> votes;
+    private HashMap<String, Votes> votes;
 
     // The strategy for calculating the winner
-    I3VoteStrategy winningVoteStrategy;
+    private I3VoteStrategy winningVoteStrategy;
 
     /**
      * Constructor for ElectionData
@@ -35,7 +36,12 @@ public class ElectionData {
      * @return The available candidates
      */
     public Set<String> getCandidates() {
-        return votes.keySet();
+
+        // Create a new HashSet to return
+        // Needed to prevent external modification of the internal HashMap
+        Set<String> output = new HashSet<String>();
+        output.addAll(votes.keySet());
+        return output;
     }
 
     /**
