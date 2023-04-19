@@ -1,5 +1,3 @@
-import java.util.Optional;
-
 /**
  * Checks if a binary tree is a valid min heap
  */
@@ -28,7 +26,7 @@ public class MinHeapValidator implements IValidator {
      */
     @Override
     public boolean visit(int data, IBinTree left, IBinTree right) {
-        if (isLarger(data, left.getRoot()) || isLarger(data, right.getRoot())) {
+        if (new IsLargerValidator(data, left).isValid() || new IsLargerValidator(data, right).isValid()) {
             valid = false;
         }
         return valid;
@@ -53,21 +51,5 @@ public class MinHeapValidator implements IValidator {
     @Override
     public boolean isValid() {
         return valid;
-    }
-
-    /**
-     * Returns true if the data value is larger than the node's value.
-     *
-     * @param data        The node's value
-     * @param subtreeRoot The subtree's root
-     * @return Is this node's root value larger than the subtree's root value?
-     */
-    public static boolean isLarger(int data, Optional<Integer> nodeRoot) {
-        if (nodeRoot.isPresent()) {
-            if (data > nodeRoot.get()) {
-                return true;
-            }
-        }
-        return false;
     }
 }

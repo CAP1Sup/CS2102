@@ -26,7 +26,7 @@ public class BinarySearchTreeValidator implements IValidator {
      */
     @Override
     public boolean visit(int data, IBinTree left, IBinTree right) {
-        if (MaxHeapValidator.isSmaller(data, left.getRoot()) || MinHeapValidator.isLarger(data, right.getRoot())) {
+        if (new IsSmallerValidator(data, left).isValid() || new IsLargerValidator(data, right).isValid()) {
             valid = false;
         }
         return valid;
