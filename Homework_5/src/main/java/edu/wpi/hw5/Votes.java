@@ -1,3 +1,5 @@
+package edu.wpi.hw5;
+
 public class Votes {
     private int firstVotes;
     private int secondVotes;

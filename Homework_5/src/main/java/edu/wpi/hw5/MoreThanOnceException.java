@@ -1,3 +1,5 @@
+package edu.wpi.hw5;
+
 /**
  * This exception is thrown when a candidate is voted for more than once in a
  * single vote

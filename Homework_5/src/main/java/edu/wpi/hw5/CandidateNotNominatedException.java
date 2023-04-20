@@ -1,3 +1,5 @@
+package edu.wpi.hw5;
+
 /**
  * This exception is thrown when a vote is cast for a candidate that has not
  * been nominated
@@ -14,6 +16,7 @@ public class CandidateNotNominatedException extends Exception {
      */
     public CandidateNotNominatedException(String candidateName) {
         super(String.format("%s was not nominated", candidateName));
+        this.candidateName = candidateName;
     }
 
     /**

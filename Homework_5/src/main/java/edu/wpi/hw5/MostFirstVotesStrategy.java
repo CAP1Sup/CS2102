@@ -1,3 +1,5 @@
+package edu.wpi.hw5;
+
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -21,7 +23,7 @@ public class MostFirstVotesStrategy implements I3VoteStrategy {
         // always be entered into the topCandidate entries
         int totalVotes = 0;
         String topCandidate = "";
-        int topCandidateVotes = -1;
+        int topCandidateVotes = 0;
 
         // Search through the candidates, finding the one with the most first votes and
         // calculating the total
