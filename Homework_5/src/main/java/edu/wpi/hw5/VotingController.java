@@ -34,21 +34,34 @@ public class VotingController {
     @FXML
     protected void onVoteClick() {
         try {
+            // Attempt to vote for the candidates in the text fields
             electionData.submitVote(this.vote1.getText(), this.vote2.getText(), this.vote3.getText());
+
+            // If no exception is thrown, clear the text fields
             this.vote1.setText("");
             this.vote2.setText("");
             this.vote3.setText("");
 
         } catch (CandidateNotNominatedException error) {
+
+            // If a CandidateNotNominatedException is thrown, attempt to nominate the
+            // candidate
             Alert confirmation = new Alert(AlertType.CONFIRMATION);
             confirmation.setHeaderText("Error voting for candidate");
             confirmation.setContentText(error.getMessage() + "\nWould you like to nominate them?");
             Optional<ButtonType> result = confirmation.showAndWait();
+
+            // Check if the user clicked OK
             if (result.get() == ButtonType.OK) {
                 try {
+                    // Try to nominate the candidate
                     electionData.nominateCandidate(error.getCandidate());
+
+                    // If no exception is thrown, try to vote for the candidates again
                     onVoteClick();
                 } catch (AlreadyNominatedException e1) {
+
+                    // If an AlreadyNominatedException is thrown, show an error alert
                     Alert errorAlert = new Alert(AlertType.ERROR);
                     errorAlert.setHeaderText("Error voting for candidate");
                     errorAlert.setContentText(e1.getMessage());
@@ -56,6 +69,7 @@ public class VotingController {
                 }
             }
         } catch (MoreThanOnceException e) {
+            // If a MoreThanOnceException is thrown, show an error alert
             Alert errorAlert = new Alert(AlertType.ERROR);
             errorAlert.setHeaderText("Error voting for candidate");
             errorAlert.setContentText(e.getMessage());
@@ -65,12 +79,14 @@ public class VotingController {
 
     @FXML
     protected void onNominateClick() {
-        // TODO: Use this.nominate.getText() to pass data to your ElectionData field and
-        // nominate a candidate
         try {
+            // Try to nominate the candidate
             electionData.nominateCandidate(this.nominate.getText());
+
+            // If no exception is thrown, clear the text field
             this.nominate.setText("");
         } catch (AlreadyNominatedException e) {
+            // If an AlreadyNominatedException is thrown, show an error alert
             Alert errorAlert = new Alert(AlertType.ERROR);
             errorAlert.setHeaderText("Error nominating candidate");
             errorAlert.setContentText(e.getMessage());
@@ -80,10 +96,13 @@ public class VotingController {
 
     @FXML
     protected void onWinnerClick() {
-        // TODO: Use winner.setText(...) to pass data from your ElectionData field to
-        // the GUI
+        // Get the winner
         Optional<String> winner = electionData.calculateWinner();
+
+        // Check if there is a winner
         if (winner.isPresent()) {
+
+            // If there is a winner, set the winner label to the winner
             this.winner.setText(winner.get());
         } else {
             this.winner.setText("No winner");
