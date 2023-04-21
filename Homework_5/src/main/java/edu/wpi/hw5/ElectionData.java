@@ -107,8 +107,7 @@ public class ElectionData {
      */
     public Optional<String> calculateWinner() {
         // Make a deep copy of the votes
-        // TODO: Is this the right number for the initial capacity?
-        HashMap<String, Votes> votesCopy = new HashMap<String, Votes>(3);
+        HashMap<String, Votes> votesCopy = new HashMap<String, Votes>();
         for (String candidate : votes.keySet()) {
             votesCopy.put(candidate, new Votes(
                     votes.get(candidate).getFirstVotes(),

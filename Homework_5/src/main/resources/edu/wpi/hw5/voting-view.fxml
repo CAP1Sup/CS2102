@@ -25,11 +25,6 @@
   <Button text="Compute winner" onAction="#onWinnerClick" />
   <Label fx:id="winner" />
 
-  <HBox alignment="CENTER">
-    <Label text="error:" />
-    <Label fx:id="error" />
-  </HBox>
-
   <Button text="Set winning strategy to most first votes" onAction="#onFirstVotesClick" />
   <Button text="Set winning strategy to most agreeable" onAction="#onAgreeableClick" />
 

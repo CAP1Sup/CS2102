@@ -8,6 +8,31 @@ import org.junit.Test;
 
 public class Examples {
 
+    // Exception constructors
+    @Test(expected = AlreadyNominatedException.class)
+    public void testAlreadyNominatedException() throws AlreadyNominatedException {
+        throw new AlreadyNominatedException("Bob");
+    }
+
+    @Test(expected = CandidateNotNominatedException.class)
+    public void testCandidateNotNominatedException() throws CandidateNotNominatedException {
+        throw new CandidateNotNominatedException("Bob");
+    }
+
+    @Test
+    public void testCandidateNotNominatedExceptionGetCandidate() {
+        try {
+            throw new CandidateNotNominatedException("Bob");
+        } catch (CandidateNotNominatedException e) {
+            assertTrue("Bob".equals(e.getCandidate()));
+        }
+    }
+
+    @Test(expected = MoreThanOnceException.class)
+    public void testMoreThanOnceException() throws MoreThanOnceException {
+        throw new MoreThanOnceException("Bob");
+    }
+
     // Exception tests
     @Test(expected = AlreadyNominatedException.class)
     public void testMultipleNominations() throws AlreadyNominatedException {
@@ -33,7 +58,7 @@ public class Examples {
         ElectionData electionData = new ElectionData(new MostFirstVotesStrategy());
         electionData.nominateCandidate("Bob");
         electionData.nominateCandidate("Alice");
-        electionData.submitVote("Bob", "Alice", "Charlie");
+        electionData.submitVote("Bob", "Charlie", "Alice");
         fail("Should have thrown CandidateNotNominatedException");
     }
 
@@ -121,6 +146,16 @@ public class Examples {
     }
 
     @Test
+    public void testMostFirstVotesStrategyNoVotes()
+            throws AlreadyNominatedException, CandidateNotNominatedException, MoreThanOnceException {
+        ElectionData electionData = new ElectionData(new MostFirstVotesStrategy());
+        electionData.nominateCandidate("Bob");
+        electionData.nominateCandidate("Alice");
+        electionData.nominateCandidate("Charlie");
+        assertEquals(Optional.empty(), electionData.calculateWinner());
+    }
+
+    @Test
     public void testMostAgreeableStrategy()
             throws AlreadyNominatedException, CandidateNotNominatedException, MoreThanOnceException {
         ElectionData electionData = new ElectionData(new MostAgreeableStrategy());
@@ -134,6 +169,16 @@ public class Examples {
         electionData.submitVote("Alice", "Bob", "Charlie");
         electionData.submitVote("Charlie", "Bob", "Alice");
         assertEquals(Optional.of("Charlie"), electionData.calculateWinner());
+    }
+
+    @Test
+    public void testMostAgreeableStrategyNoVotes()
+            throws AlreadyNominatedException, CandidateNotNominatedException, MoreThanOnceException {
+        ElectionData electionData = new ElectionData(new MostAgreeableStrategy());
+        electionData.nominateCandidate("Bob");
+        electionData.nominateCandidate("Alice");
+        electionData.nominateCandidate("Charlie");
+        assertEquals(Optional.empty(), electionData.calculateWinner());
     }
 
     // Test setStrategy
