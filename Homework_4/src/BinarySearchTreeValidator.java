@@ -3,7 +3,7 @@
  */
 public class BinarySearchTreeValidator implements IValidator {
 
-    // Stores if the tree is a valid binary search tree
+    /** Stores if the tree is a valid binary search tree */
     private boolean valid = true;
 
     /**

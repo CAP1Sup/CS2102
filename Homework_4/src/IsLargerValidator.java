@@ -3,10 +3,10 @@
  */
 public class IsLargerValidator implements IValidator {
 
-    // Stores if the node is larger than the subtree's root value
+    /** Stores if the node is larger than the subtree's root value */
     private boolean larger = false;
 
-    // Stores the node's value
+    /** Stores the node's value */
     private int node;
 
     /**

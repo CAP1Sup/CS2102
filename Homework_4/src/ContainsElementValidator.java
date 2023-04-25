@@ -3,10 +3,10 @@
  */
 public class ContainsElementValidator implements IValidator {
 
-    // The element to search for
+    /** The element to search for */
     private int element;
 
-    // Stores if the tree contains the element
+    /** Stores if the tree contains the element */
     private boolean containsElement = false;
 
     /**

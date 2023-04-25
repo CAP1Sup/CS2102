@@ -4,8 +4,10 @@
  */
 public class OneGreaterValidator {
 
-    // Stores if the first binary tree's size is one greater than the second
-    // binary's
+    /**
+     * Stores if the first binary tree's size is one greater than the second
+     * binary's
+     */
     private boolean isOneGreater;
 
     /**

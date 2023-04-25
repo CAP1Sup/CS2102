@@ -3,7 +3,7 @@
  */
 public class MinHeapValidator implements IValidator {
 
-    // Stores if the tree is a valid min heap
+    /** Stores if the tree is a valid min heap */
     private boolean valid = true;
 
     /**

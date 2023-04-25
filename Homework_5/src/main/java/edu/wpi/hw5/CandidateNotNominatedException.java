@@ -6,7 +6,7 @@ package edu.wpi.hw5;
  */
 public class CandidateNotNominatedException extends Exception {
 
-    // The name of the candidate that was not nominated
+    /** The name of the candidate that was not nominated */
     private String candidateName;
 
     /**

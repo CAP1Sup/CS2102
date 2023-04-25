@@ -8,13 +8,13 @@ import java.util.Scanner;
  */
 public class VotingMachine {
 
-    // Election data handler
+    /** Election data handler */
     private static ElectionData electionData = new ElectionData(new MostFirstVotesStrategy());
 
-    // System input
+    /** System input */
     private static Scanner ioScanner = new Scanner(System.in);
 
-    // If to continue prompting the user
+    /** If to continue prompting the user */
     private static boolean continuePrompting = true;
 
     public static void main(String[] args) {

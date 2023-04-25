@@ -3,8 +3,10 @@
  */
 public class SizeVisitor implements IVisitor {
 
-    // Stores the size of the tree
-    // Increments every time a node is visited
+    /**
+     * Stores the size of the tree
+     * Increments every time a node is visited
+     */
     private int size = 0;
 
     /**

@@ -3,10 +3,10 @@
  */
 public class ContainsAllValidator implements IValidator {
 
-    // The other tree to compare to
+    /** The other tree to compare to */
     private IBinTree otherTree;
 
-    // Stores if the other tree contains all the elements of the tree
+    /** Stores if the other tree contains all the elements of the tree */
     private boolean containsAllElements = true;
 
     /**

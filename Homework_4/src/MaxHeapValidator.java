@@ -3,7 +3,7 @@
  */
 public class MaxHeapValidator implements IValidator {
 
-    // Stores if the tree is a valid max heap
+    /** Stores if the tree is a valid max heap */
     private boolean valid = true;
 
     /**

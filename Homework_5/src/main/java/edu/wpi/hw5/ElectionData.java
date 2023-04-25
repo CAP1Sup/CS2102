@@ -7,10 +7,10 @@ import java.util.Set;
 
 public class ElectionData {
 
-    // HashMap of the votes for each candidate
+    /** HashMap of the votes for each candidate */
     private HashMap<String, Votes> votes;
 
-    // The strategy for calculating the winner
+    /** The strategy for calculating the winner */
     private I3VoteStrategy winningVoteStrategy;
 
     /**
